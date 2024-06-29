@@ -33,9 +33,10 @@ module.exports = {
     "no-unused-vars": "warn",
     "@typescript-eslint/ban-ts-comment": "warn",
     "@typescript-eslint/no-unused-vars": "warn",
-    "@typescript-eslint/no-unsafe-assignment": "warn",
+    "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/no-explicit-any": "warn",
     "@typescript-eslint/no-unsafe-argument": "warn",
+    "react/no-unknown-property": "off",
     "react-refresh/only-export-components": [
       "warn",
       {
