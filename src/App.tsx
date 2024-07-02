@@ -1,13 +1,13 @@
 // import './App.css'
-import ThreeScene from "./pages/ThreeScene.tsx";
+import FiberScene from "./pages/FiberScene.tsx";
 
 function App() {
-
-  return (
-    <>
-      <ThreeScene/>
-    </>
-  )
+    return (
+        <>
+            {/*<ThreeScene/>*/}
+            <FiberScene />
+        </>
+    );
 }
 
-export default App
+export default App;

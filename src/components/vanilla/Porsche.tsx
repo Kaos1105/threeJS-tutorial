@@ -1,8 +1,8 @@
 // Cube.tsx
-import React, {useCallback, useEffect, useRef} from 'react';
-import * as THREE from 'three';
-import {GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader.js";
-import {useThreeStore} from "../stores/useThreeStore.tsx";
+import React, { useCallback, useEffect, useRef } from "react";
+import * as THREE from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { useThreeStore } from "../../stores/useThreeStore.tsx";
 
 const Porsche: React.FC = () => {
     const { scene, renderer, camera } = useThreeStore();
@@ -17,7 +17,7 @@ const Porsche: React.FC = () => {
             }
         }
 
-        if(renderer && camera && scene){
+        if (renderer && camera && scene) {
             renderer.render(scene, camera);
         }
 
@@ -25,24 +25,29 @@ const Porsche: React.FC = () => {
     }, [scene, renderer, camera]);
 
     useEffect(() => {
-        if(!scene) return;
+        if (!scene) return;
 
         //Porsche generating
         const loader = new GLTFLoader();
-        loader.load('/models/porsche_911.glb', function (gltf ){
-            modelRef.current = gltf.scene;
-            scene.add(modelRef.current);
-        }, undefined, function (error){
-            console.error(error);
-        })
+        loader.load(
+            "/models/porsche_911.glb",
+            function (gltf) {
+                modelRef.current = gltf.scene;
+                scene.add(modelRef.current);
+            },
+            undefined,
+            function (error) {
+                console.error(error);
+            }
+        );
 
         const animationId = animate();
 
-        return ()=>{
+        return () => {
             cancelAnimationFrame(animationId);
 
             modelRef.current && scene.remove(modelRef.current);
-        }
+        };
     }, [scene, renderer, camera]);
 
     return null;

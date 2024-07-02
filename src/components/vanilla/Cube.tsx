@@ -1,7 +1,7 @@
 // Cube.tsx
-import React, { useEffect } from 'react';
-import * as THREE from 'three';
-import {useThreeStore} from "../stores/useThreeStore.tsx";
+import React, { useEffect } from "react";
+import * as THREE from "three";
+import { useThreeStore } from "../../stores/useThreeStore.tsx";
 
 const Cube: React.FC = () => {
     const { scene } = useThreeStore();
