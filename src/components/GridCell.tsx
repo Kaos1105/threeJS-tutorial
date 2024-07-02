@@ -1,26 +1,42 @@
 import React, { useRef, useState } from "react";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import { Instance } from "@react-three/drei";
 import { Euler, Mesh, MeshBasicMaterial, Vector3 } from "three";
 
-function GridCell(props: { position?: Vector3; rotation?: Euler }) {
+interface GridCellProps {
+    position?: Vector3;
+    rotation?: Euler;
+    isSelected: boolean;
+    onClick: () => void;
+}
+
+function GridCell({ position, rotation, isSelected, onClick }: GridCellProps) {
     const ref = useRef<MeshBasicMaterial>();
+
     const [hovered, setHover] = useState(false);
+
     useFrame((state, delta) => {
         if (!ref.current) {
             return;
         }
         if (hovered) {
-            ref.current.color.set("#fe4365");
+            ref.current.color.set("#3cc1e6");
+        } else if (isSelected) {
+            ref.current.color.set("#ff578f");
         } else {
             ref.current.color.set("white");
         }
     });
+
     return (
-        <group {...props}>
+        <group position={position} rotation={rotation}>
             <Instance
                 color="white"
                 ref={ref}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    onClick();
+                }}
                 onPointerOver={(e) => (e.stopPropagation(), setHover(true))}
                 onPointerOut={(e) => setHover(false)}
             />

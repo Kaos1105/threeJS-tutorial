@@ -3,10 +3,11 @@ import React, { useRef } from "react";
 import { useFrame, useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import * as THREE from "three";
+import { useGLTF } from "@react-three/drei";
 // eslint-disable-next-line
 
 const CarModel: React.FC = () => {
-    const gltf = useLoader(GLTFLoader, "/models/porsche_911.glb");
+    const { scene } = useGLTF("/models/porsche_911.glb");
     const modelRef = useRef<THREE.Group | null>(null);
 
     useFrame(({ clock }) => {
@@ -19,9 +20,7 @@ const CarModel: React.FC = () => {
         }
     });
 
-    return (
-        <primitive ref={modelRef} scale={[0.5, 0.5, 0.5]} object={gltf.scene} />
-    );
+    return <primitive ref={modelRef} scale={[0.5, 0.5, 0.5]} object={scene} />;
 };
 
 export default CarModel;
