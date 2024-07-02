@@ -4,13 +4,16 @@ import GridCell from "./GridCell.tsx";
 import { Euler, Vector3 } from "three";
 import Building from "./Building.tsx";
 import CarModel from "./CarModel.tsx";
+import { MAX_RANGE } from "../pages/FiberScene.tsx";
+import { useGridStore } from "../stores/useGridStore.tsx";
 
 // Generate data array with positions and rotation (default rotation)
 type IProp = {
     range: number;
 };
+
 function InstanceGrid({ range }: IProp) {
-    const [selectedCells, setSelectedCells] = useState<Vector3[] | []>([]);
+    const { selectedCells, toggleCellSelection } = useGridStore();
 
     const data = useMemo(() => {
         const defaultEuler = new Euler(-Math.PI / 2, 0, 0);
@@ -25,36 +28,9 @@ function InstanceGrid({ range }: IProp) {
         return result;
     }, [range]);
 
-    const toggleCellSelection = useCallback(
-        (position: Vector3) => {
-            setSelectedCells((prevSelectedCells) => {
-                const index = prevSelectedCells.findIndex((cell) =>
-                    cell.equals(position)
-                );
-                if (index === -1) {
-                    // Add cell to selected
-                    return [...prevSelectedCells, position];
-                } else {
-                    // Remove cell from selected
-                    return prevSelectedCells.filter((_, i) => i !== index);
-                }
-            });
-        },
-        [setSelectedCells]
-    );
-
     return (
         <>
-            <Instances limit={10000} range={range * range}>
-                <boxGeometry
-                    attach="geometry"
-                    args={[0.9, 0.9, 0]}
-                ></boxGeometry>
-                <meshBasicMaterial
-                    attach="material"
-                    toneMapped={false}
-                    wireframe
-                />
+            <Instances limit={MAX_RANGE * MAX_RANGE} range={range * range}>
                 {data.map((props, i) => (
                     <GridCell
                         key={i}
@@ -62,13 +38,13 @@ function InstanceGrid({ range }: IProp) {
                         isSelected={selectedCells.some((cell) =>
                             cell.equals(props.position)
                         )}
-                        onClick={() => toggleCellSelection(props.position)}
                     />
                 ))}
             </Instances>
-            {selectedCells.map((position) => {
+            {selectedCells.map((position, index) => {
                 return (
                     <Building
+                        key={index}
                         position={new Vector3(position.x, 0, position.z)}
                     />
                 );

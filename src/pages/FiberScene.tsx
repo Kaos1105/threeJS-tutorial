@@ -5,23 +5,26 @@ import InstancedGrid from "../components/InstancedGrid.tsx";
 import { useControls } from "leva";
 import Building from "../components/Building.tsx";
 import { Vector3 } from "three";
+import { useEffect } from "react";
+import { useInteractiveStore } from "../stores/useInteractiveStore.tsx";
 
+export const MAX_RANGE = 40;
 const FiberScene = () => {
+    const { setIsEditing } = useInteractiveStore();
+
     const { range, isEditing } = useControls({
-        range: { value: 5, min: 5, max: 40, step: 1 },
+        range: { value: 5, min: 5, max: MAX_RANGE, step: 1 },
         isEditing: true
     });
+
+    useEffect(() => {
+        setIsEditing(isEditing);
+    }, [isEditing]);
 
     return (
         <>
             <Canvas style={{ width: "100vw", height: "100vh" }}>
                 <Scene />
-                {/*<CarModel />*/}
-                {/*<Grid*/}
-                {/*    position={[0, 0, 0]}*/}
-                {/*    args={gridSize}*/}
-                {/*    {...gridConfig}*/}
-                {/*/>*/}
                 <InstancedGrid range={range} />
                 <OrbitControls />
                 <axesHelper args={[1000]} />

@@ -11,7 +11,6 @@ const Building = ({ position }: IProps) => {
     const { scene } = useGLTF("/models/building.glb");
     const modelRef = useRef<THREE.Group | null>(null);
 
-    console.log(scene);
     return (
         <primitive
             ref={modelRef}
@@ -20,7 +19,7 @@ const Building = ({ position }: IProps) => {
             position={
                 new Vector3(
                     position.x + 0.22,
-                    position.y + 0.1,
+                    position.y + 0.2,
                     position.z + 0.4
                 )
             }
