@@ -15,7 +15,6 @@ const FiberScene = () => {
     };
 
     useEffect(() => {
-        console.log(camera);
         //scene setup
         scene.background = new THREE.Color(0xbfe3dd);
         const pmremGenerator = new THREE.PMREMGenerator(renderer);

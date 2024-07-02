@@ -2,10 +2,11 @@ import { useCallback, useMemo, useState } from "react";
 import { Instances } from "@react-three/drei";
 import GridCell from "./GridCell.tsx";
 import { Euler, Vector3 } from "three";
-import Building from "./Building.tsx";
+import InstancedBuilding from "./InstancedBuilding.tsx";
 import CarModel from "./CarModel.tsx";
 import { MAX_RANGE } from "../pages/FiberScene.tsx";
 import { useGridStore } from "../stores/useGridStore.tsx";
+import { BuildingGLB } from "../../public/models/Building.tsx";
 
 // Generate data array with positions and rotation (default rotation)
 type IProp = {
@@ -41,14 +42,6 @@ function InstanceGrid({ range }: IProp) {
                     />
                 ))}
             </Instances>
-            {selectedCells.map((position, index) => {
-                return (
-                    <Building
-                        key={index}
-                        position={new Vector3(position.x, 0, position.z)}
-                    />
-                );
-            })}
         </>
     );
 }

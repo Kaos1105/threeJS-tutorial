@@ -3,7 +3,7 @@ import { OrbitControls, Stats } from "@react-three/drei";
 import Scene from "../modules/Scene.tsx";
 import InstancedGrid from "../components/InstancedGrid.tsx";
 import { useControls } from "leva";
-import Building from "../components/Building.tsx";
+import InstancedBuilding from "../components/InstancedBuilding.tsx";
 import { Vector3 } from "three";
 import { useEffect } from "react";
 import { useInteractiveStore } from "../stores/useInteractiveStore.tsx";
@@ -26,6 +26,7 @@ const FiberScene = () => {
             <Canvas style={{ width: "100vw", height: "100vh" }}>
                 <Scene />
                 <InstancedGrid range={range} />
+                <InstancedBuilding />
                 <OrbitControls />
                 <axesHelper args={[1000]} />
                 <Stats />

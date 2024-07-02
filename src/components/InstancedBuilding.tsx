@@ -1,20 +1,31 @@
-import { Instances } from "@react-three/drei";
-import { MAX_RANGE } from "../pages/FiberScene.tsx";
+// Cube.tsx
+import React from "react";
+import { Vector3 } from "three";
+import { BuildingGLB } from "../../public/models/Building.tsx";
+import { useGridStore } from "../stores/useGridStore.tsx";
 
-// Generate data array with positions and rotation (default rotation)
-type IProp = {
-    range: number;
-};
+const InstancedBuilding = () => {
+    const { selectedCells, toggleCellSelection } = useGridStore();
 
-function InstancedBuilding({ range }: IProp) {
     return (
         <>
-            <Instances
-                limit={MAX_RANGE * MAX_RANGE}
-                range={range * range}
-            ></Instances>
+            {selectedCells.map((position, index) => {
+                return (
+                    <BuildingGLB
+                        key={index}
+                        scale={[0.35, 0.5, 0.35]}
+                        position={
+                            new Vector3(
+                                position.x + 0.22,
+                                0.2,
+                                position.z + 0.4
+                            )
+                        }
+                    />
+                );
+            })}
         </>
     );
-}
+};
 
 export default InstancedBuilding;

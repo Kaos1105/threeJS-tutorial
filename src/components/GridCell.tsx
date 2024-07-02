@@ -39,7 +39,7 @@ function GridCell({ position, rotation, isSelected }: GridCellProps) {
                 ref.current.color.set("white");
             }
         } else {
-            ref.current?.color.set("#98a4b8");
+            ref.current?.color.set("#bac6d9");
         }
     });
 
